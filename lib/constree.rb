@@ -10,8 +10,8 @@ module Constree
       seen << node if seen.empty?
 
       node.sub_nodes.each do |sub_n|
-	seen << sub_n
-	list sub_n, seen
+        seen << sub_n
+        list sub_n, seen
       end
 
       seen

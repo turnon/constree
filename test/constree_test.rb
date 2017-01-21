@@ -8,11 +8,12 @@ class ConstreeTest < Minitest::Test
       module D;end
       F = :f
     end
+    E = :e
   end
 
   def setup
     @list = Constree.list A
-    @a, @ab, @ac, @acd, @acf = *@list
+    @a, @ab, @ac, @acd, @acf, @ae = *@list
   end
 
   def test_that_it_has_a_version_number
@@ -20,7 +21,7 @@ class ConstreeTest < Minitest::Test
   end
 
   def test_list
-    expected = [ConstreeTest::A, ConstreeTest::A::B, ConstreeTest::A::C, ConstreeTest::A::C::D, :f]
+    expected = [ConstreeTest::A, ConstreeTest::A::B, ConstreeTest::A::C, ConstreeTest::A::C::D, :f, :e]
     assert_equal expected, @list.map(&:constant)
   end
 
@@ -40,5 +41,38 @@ class ConstreeTest < Minitest::Test
     assert_equal [@a], @ac.ancestors
     assert_equal [@a, @ac], @acd.ancestors
     assert_equal [@a, @ac], @acf.ancestors
+  end
+
+  def test_is_last
+    assert @acf.last?
+    refute @acd.last?
+  end
+
+  def test_branch
+    assert_equal '', @a.branch
+    assert_equal '├─', @ab.branch
+    assert_equal '└─', @acf.branch
+  end
+
+  def test_indent
+    assert_equal '', @a.indent
+    assert_equal '', @ab.indent
+    assert_equal '', @ac.indent
+    assert_equal '│ ', @acd.indent
+    assert_equal '│ ', @acf.indent
+    assert_equal '', @ae.indent
+  end
+
+  def test_short_name
+    assert_equal %{A B C D F E}, @list.map(&:short_name).join(' ')
+  end
+
+  def test_level
+    assert_equal 'A', @a.level
+    assert_equal '├─B', @ab.level
+    assert_equal '├─C', @ac.level
+    assert_equal '│ ├─D', @acd.level
+    assert_equal '│ └─F', @acf.level
+    assert_equal '└─E', @ae.level
   end
 end
