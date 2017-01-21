@@ -49,5 +49,10 @@ module Constree
       (name || constant.name.split(/::/)[-1]).to_s
     end
 
+    def == other
+      return false unless other.is_a? Node
+      constant == other.constant
+    end
+
   end
 end

@@ -11,10 +11,14 @@ module Constree
 
       node.sub_nodes.each do |sub_n|
         seen << sub_n
-        list sub_n, seen
+        list(sub_n, seen) if not_listed? seen, sub_n
       end
 
       seen
+    end
+
+    def not_listed? seen, node
+      seen.find_index(node) == seen.count - 1
     end
 
   end
