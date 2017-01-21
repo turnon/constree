@@ -45,11 +45,15 @@ module Constree
     end
 
     def level
-      indent + branch + short_name + ' ' + type
+      indent + branch + display_name + ' ' + type
     end
 
-    def short_name
-      (name || constant.name.split(/::/)[-1]).to_s
+    def display_name
+      (name || constant.name).to_s
+    end
+
+    def full_name
+      top? ? constant.name : "#{parent.full_name}::#{name}"
     end
 
     def == other
@@ -58,7 +62,7 @@ module Constree
     end
 
     def type
-      ref ? "→ #{ref.constant.name}" : "(#{constant.class.to_s})"
+      ref ? "→ #{ref.full_name}" : "(#{constant.class.to_s})"
     end
 
     def not_yet? seen

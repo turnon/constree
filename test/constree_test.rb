@@ -57,11 +57,11 @@ class ConstreeTest < Minitest::Test
   end
 
   def test_short_name
-    assert_equal %{A B C G D H F E}, @list.map(&:short_name).join(' ')
+    assert_equal %{ConstreeTest::A B C G D H F E}, @list.map(&:display_name).join(' ')
   end
 
   def test_level
-    assert_equal 'A (Module)', @a.level
+    assert_equal 'ConstreeTest::A (Module)', @a.level
     assert_equal '├─B (Class)', @ab.level
     assert_equal '├─C (Class)', @ac.level
     assert_equal '│ ├─G → ConstreeTest::A', @acg.level

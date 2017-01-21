@@ -8,7 +8,7 @@ class ConstreeNotFromRootTest < Minitest::Test
   end
 
   def test_level
-    assert_equal 'C (Class)', @c.level
+    assert_equal 'ConstreeTest::A::C (Class)', @c.level
     assert_equal '├─G (Module)', @g.level
     assert_equal '│ ├─B (Class)', @b.level
     assert_equal '│ ├─C → ConstreeTest::A::C', @c1.level
