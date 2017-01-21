@@ -18,16 +18,15 @@ module Constree
     end
 
     def of mod
-      l = list mod
-      l.map(&:level).join "\n"
+      list(mod).
+        map(&:level).
+        join("\n")
+    end
+
+    def p mod
+      puts of mod
     end
 
   end
 
-end
-
-class Module
-  def constree
-    ::Constree.of self
-  end
 end
