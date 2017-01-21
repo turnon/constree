@@ -1,5 +1,8 @@
 module Constree
   Node = Struct.new :constant, :name, :parent, :is_last do
+
+    attr_accessor :ref
+
     def sub_nodes
       return [] unless constant.is_a? Module
       names = constant.constants
@@ -42,7 +45,7 @@ module Constree
     end
 
     def level
-      indent + branch + short_name
+      indent + branch + short_name + ' ' + type
     end
 
     def short_name
@@ -52,6 +55,20 @@ module Constree
     def == other
       return false unless other.is_a? Node
       constant == other.constant
+    end
+
+    def type
+      ref ? "→ #{ref.constant.name}" : "(#{constant.class.to_s})"
+    end
+
+    def not_yet? seen
+      i = seen.find_index self
+      if i == seen.count - 1
+       true
+      else
+        self.ref = seen[i]
+        false
+      end
     end
 
   end

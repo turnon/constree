@@ -4,7 +4,7 @@ class ConstreeTest < Minitest::Test
 
   def setup
     @list = Constree.list A
-    @a, @ab, @ac, @acg, @acd, @acf, @ae = *@list
+    @a, @ab, @ac, @acg, @acd, @acdh, @acf, @ae = *@list
   end
 
   def test_that_it_has_a_version_number
@@ -12,7 +12,7 @@ class ConstreeTest < Minitest::Test
   end
 
   def test_list
-    expected = [ConstreeTest::A, ConstreeTest::A::B, ConstreeTest::A::C, ConstreeTest::A, ConstreeTest::A::C::D, :f, :e]
+    expected = [ConstreeTest::A, ConstreeTest::A::B, ConstreeTest::A::C, ConstreeTest::A, ConstreeTest::A::C::D, ConstreeTest::A::C, :f, :e]
     assert_equal expected, @list.map(&:constant)
   end
 
@@ -57,17 +57,18 @@ class ConstreeTest < Minitest::Test
   end
 
   def test_short_name
-    assert_equal %{A B C G D F E}, @list.map(&:short_name).join(' ')
+    assert_equal %{A B C G D H F E}, @list.map(&:short_name).join(' ')
   end
 
   def test_level
-    assert_equal 'A', @a.level
-    assert_equal '├─B', @ab.level
-    assert_equal '├─C', @ac.level
-    assert_equal '│ ├─G', @acg.level
-    assert_equal '│ ├─D', @acd.level
-    assert_equal '│ └─F', @acf.level
-    assert_equal '└─E', @ae.level
+    assert_equal 'A (Module)', @a.level
+    assert_equal '├─B (Class)', @ab.level
+    assert_equal '├─C (Class)', @ac.level
+    assert_equal '│ ├─G → ConstreeTest::A', @acg.level
+    assert_equal '│ ├─D (Module)', @acd.level
+    assert_equal '│ │ └─H → ConstreeTest::A::C', @acdh.level
+    assert_equal '│ └─F (Symbol)', @acf.level
+    assert_equal '└─E (Symbol)', @ae.level
   end
 end
 

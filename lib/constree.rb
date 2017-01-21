@@ -11,16 +11,23 @@ module Constree
 
       node.sub_nodes.each do |sub_n|
         seen << sub_n
-        list(sub_n, seen) if not_listed? seen, sub_n
+        list(sub_n, seen) if sub_n.not_yet? seen
       end
 
       seen
     end
 
-    def not_listed? seen, node
-      seen.find_index(node) == seen.count - 1
+    def of mod
+      l = list mod
+      l.map(&:level).join "\n"
     end
 
   end
 
+end
+
+class Module
+  def constree
+    ::Constree.of self
+  end
 end
