@@ -1,5 +1,21 @@
+require 'tree_graph'
+
 module Constree
   Node = Struct.new :constant, :name, :parent, :is_last do
+
+    include TreeGraph
+
+    def parent_for_tree_graph
+      parent
+    end
+
+    def label_for_tree_graph
+      display_name + ' ' + type
+    end
+
+    def is_last_for_tree_graph
+      is_last ? true : false
+    end
 
     attr_accessor :ref
 
@@ -11,41 +27,8 @@ module Constree
       end
     end
 
-    def ancestors
-      return [] unless parent
-      p, anc = parent, []
-      while p
-        anc.unshift p
-        p = p.parent
-      end
-      anc
-    end
-
-    def last?
-      is_last ? true : false
-    end
-
     def top?
       parent ? false : true
-    end
-
-    def branch
-      return '' unless parent
-      last? ? '└─' : '├─'
-    end
-
-    def indent
-      ancestors.map do |a|
-        if a.top?
-          ''
-        else
-          a.last? ? ' ' : '│ '
-        end
-      end.join
-    end
-
-    def level
-      indent + branch + display_name + ' ' + type
     end
 
     def display_name

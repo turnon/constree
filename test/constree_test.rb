@@ -29,46 +29,33 @@ class ConstreeTest < Minitest::Test
     assert_equal @a, @ae.parent
   end
 
-  def test_ancesotors
-    assert_equal [@a], @ab.ancestors
-    assert_equal [@a], @ac.ancestors
-    assert_equal [@a, @ac], @acd.ancestors
-    assert_equal [@a, @ac], @acf.ancestors
-  end
-
-  def test_is_last
-    assert @acf.last?
-    refute @acd.last?
-  end
-
-  def test_branch
-    assert_equal '', @a.branch
-    assert_equal '├─', @ab.branch
-    assert_equal '└─', @acf.branch
-  end
-
-  def test_indent
-    assert_equal '', @a.indent
-    assert_equal '', @ab.indent
-    assert_equal '', @ac.indent
-    assert_equal '│ ', @acd.indent
-    assert_equal '│ ', @acf.indent
-    assert_equal '', @ae.indent
-  end
-
   def test_short_name
     assert_equal %{ConstreeTest::A B C G D H F E}, @list.map(&:display_name).join(' ')
   end
 
-  def test_level
-    assert_equal 'ConstreeTest::A (Module)', @a.level
-    assert_equal '├─B (Class)', @ab.level
-    assert_equal '├─C (Class)', @ac.level
-    assert_equal '│ ├─G → ConstreeTest::A', @acg.level
-    assert_equal '│ ├─D (Module)', @acd.level
-    assert_equal '│ │ └─H → ConstreeTest::A::C', @acdh.level
-    assert_equal '│ └─F (Symbol)', @acf.level
-    assert_equal '└─E (Symbol)', @ae.level
+  def test_tree_graph_level
+    assert_equal 'ConstreeTest::A (Module)', @a.tree_graph_level
+    assert_equal '├─B (Class)', @ab.tree_graph_level
+    assert_equal '├─C (Class)', @ac.tree_graph_level
+    assert_equal '│ ├─G → ConstreeTest::A', @acg.tree_graph_level
+    assert_equal '│ ├─D (Module)', @acd.tree_graph_level
+    assert_equal '│ │ └─H → ConstreeTest::A::C', @acdh.tree_graph_level
+    assert_equal '│ └─F (Symbol)', @acf.tree_graph_level
+    assert_equal '└─E (Symbol)', @ae.tree_graph_level
+  end
+
+  def test_of
+    tree = <<EOS
+ConstreeTest::A (Module)
+├─B (Class)
+├─C (Class)
+│ ├─G → ConstreeTest::A
+│ ├─D (Module)
+│ │ └─H → ConstreeTest::A::C
+│ └─F (Symbol)
+└─E (Symbol)
+EOS
+    assert_equal tree.chomp, Constree.of(A)
   end
 end
 

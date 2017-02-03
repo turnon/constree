@@ -19,7 +19,7 @@ module Constree
 
     def of mod
       list(mod).
-        map(&:level).
+        map(&:tree_graph_level).
         join("\n")
     end
 
