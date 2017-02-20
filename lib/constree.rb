@@ -11,6 +11,7 @@ module Constree
 
       node.sub_nodes.each do |sub_n|
         seen << sub_n
+        node.children_for_tree_graph << sub_n
         list(sub_n, seen) if sub_n.not_yet? seen
       end
 
@@ -18,9 +19,7 @@ module Constree
     end
 
     def of mod
-      list(mod).
-        map(&:tree_graph_level).
-        join("\n")
+      list(mod).first.tree_graph
     end
 
     def p mod
