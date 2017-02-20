@@ -1,29 +1,24 @@
 require 'tree_graph'
 
 module Constree
-  Node = Struct.new :constant, :name, :parent, :is_last do
+  Node = Struct.new :constant, :name, :parent do
 
     include TreeGraph
-
-    def parent_for_tree_graph
-      parent
-    end
 
     def label_for_tree_graph
       display_name + ' ' + type
     end
 
-    def is_last_for_tree_graph
-      is_last ? true : false
+    def children_for_tree_graph
+      @sub_consts ||= []
     end
 
     attr_accessor :ref
 
     def sub_nodes
       return [] unless constant.is_a? Module
-      names = constant.constants
-      names.reduce([]) do |nodes, name|
-        nodes << Node.new(constant.const_get(name), name, self, nodes.count == names.count - 1)
+      constant.constants.map do |name|
+        Node.new(constant.const_get(name), name, self)
       end
     end
 
