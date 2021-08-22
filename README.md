@@ -21,22 +21,20 @@ Or install it yourself as:
 ## Example: constants in Minitest::Spec
 
 ```ruby
-2.2.2 :001 > require 'constree/module'
- => true
-2.2.2 :002 > require 'minitest/spec'
- => true
-2.2.2 :003 > Minitest::Spec.constreep
-Minitest::Spec (Class)
+irb(main):001:0> require 'minitest/spec'
+=> true
+irb(main):002:0> Constree.p Minitest::Spec
+Minitest::Spec < Minitest::Spec::DSL::InstanceMethods < Minitest::Test < Minitest::Guard < Minitest::Test::LifecycleHooks < Minitest::Reportable < Minitest::Assertions < Minitest::Runnable < Object < Minitest::Expectations < Kernel < BasicObject
 ├─DSL (Module)
-│ ├─TYPES (Array)
-│ └─InstanceMethods (Module)
+│ ├─InstanceMethods (Module)
+│ └─TYPES (Array)
 ├─TYPES → Minitest::Spec::DSL::TYPES
 ├─PASSTHROUGH_EXCEPTIONS (Array)
 ├─TEARDOWN_METHODS (Array)
 ├─LifecycleHooks (Module)
-├─UNDEFINED (Object)
 ├─E (String)
+├─UNDEFINED (Object)
 └─SIGNALS (Hash)
- => nil
+=> nil
 ```
 
