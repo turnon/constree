@@ -40,9 +40,7 @@ module Constree
     end
 
     def type
-      return "→ #{ref.full_name}" if ref
-      return "(#{constant.class.to_s})" unless Class === constant
-      "< " + constant.ancestors[1..].map(&:to_s).join(" < ")
+      ref ? "→ #{ref.full_name}" : "(#{constant.class.to_s})"
     end
 
     def not_yet? seen
@@ -55,5 +53,13 @@ module Constree
       end
     end
 
+  end
+
+  class NodeWithAncestors < Node
+    def type
+      return "→ #{ref.full_name}" if ref
+      return "(#{constant.class.to_s})" unless Class === constant
+      "< " + constant.ancestors[1..].map(&:to_s).join(" < ")
+    end
   end
 end
