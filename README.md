@@ -18,7 +18,15 @@ Or install it yourself as:
 
     $ gem install constree
 
-## Example: constants in Minitest::Spec
+## Example: output tree to html
+
+```ruby
+File.open('somewhere', 'w') do |f|
+  f.puts Constree.html_of SomeConstant
+end
+```
+
+## Example: check constants in concurrent-ruby, in irb console
 
 ```ruby
 irb(main):001:0> require "concurrent-ruby"
