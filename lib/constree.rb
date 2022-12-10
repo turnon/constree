@@ -22,6 +22,10 @@ module Constree
       list(mod).first.tree_graph
     end
 
+    def html_of mod
+      list(mod).first.tree_html_full
+    end
+
     def p mod
       puts of mod
     end
