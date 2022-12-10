@@ -23,7 +23,7 @@ Or install it yourself as:
 ```ruby
 irb(main):001:0> require "concurrent-ruby"
 => true
-irb(main):002:0> Constree.p Minitest::Spec
+irb(main):002:0> Constree.p Concurrent
 Concurrent {:kla=>Module}
 ├─AbstractExchanger {:kla=>Class, :aft=>[Concurrent::Synchronization::Object, Concurrent::Synchronization::MriObject, Concurrent::Synchronization::MriAttrVolatile, Concurrent::Synchronization::AbstractObject, Object, Kernel, BasicObject]}
 │ └─ClassMethods {:kla=>Module}
