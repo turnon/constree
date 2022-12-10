@@ -11,7 +11,18 @@ class ConstreeTest < Minitest::Test
       end
       F = :f
     end
-    E = :e
+    E = 1.2
+
+    class J
+      class K;end
+      module L;end
+      module M;end
+
+      class N < K
+        prepend L
+        include M
+      end
+    end
   end
 
 end

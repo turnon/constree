@@ -6,7 +6,7 @@ module Constree
     include TreeGraph
 
     def label_for_tree_graph
-      display_name + ' ' + type
+      "#{display_name} #{verbose}"
     end
 
     def children_for_tree_graph
@@ -17,8 +17,9 @@ module Constree
 
     def sub_nodes
       return [] unless constant.is_a? Module
-      constant.constants.map do |name|
-        Node.new(constant.const_get(name), name, self)
+      constant.constants.sort!.map! do |name|
+        const_value = constant.const_get(name)
+        Node.new(const_value, name, self)
       end
     end
 
@@ -39,8 +40,22 @@ module Constree
       constant == other.constant
     end
 
-    def type
-      ref ? "→ #{ref.full_name}" : "(#{constant.class.to_s})"
+    def verbose
+      return {ref: ref.full_name} if ref
+
+      info = {kla: constant.class}
+      return info unless constant.is_a? Module
+
+      ancestors = constant.ancestors
+      idx = ancestors.index(constant)
+      if idx > 0 && !(before = ancestors[0 .. (idx - 1)]).empty?
+        info[:bef] = before
+      end
+      unless (after = ancestors[(idx + 1) .. -1]).empty?
+        info[:aft] = after
+      end
+
+      info
     end
 
     def not_yet? seen

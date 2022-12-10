@@ -24,17 +24,17 @@ Or install it yourself as:
 irb(main):001:0> require 'minitest/spec'
 => true
 irb(main):002:0> Constree.p Minitest::Spec
-Minitest::Spec < Minitest::Spec::DSL::InstanceMethods < Minitest::Test < Minitest::Guard < Minitest::Test::LifecycleHooks < Minitest::Reportable < Minitest::Assertions < Minitest::Runnable < Object < Minitest::Expectations < Kernel < BasicObject
-├─DSL (Module)
-│ ├─InstanceMethods (Module)
-│ └─TYPES (Array)
-├─TYPES → Minitest::Spec::DSL::TYPES
-├─PASSTHROUGH_EXCEPTIONS (Array)
-├─TEARDOWN_METHODS (Array)
-├─LifecycleHooks (Module)
-├─E (String)
-├─UNDEFINED (Object)
-└─SIGNALS (Hash)
+Minitest::Spec {:kla=>Class, :aft=>[Minitest::Spec::DSL::InstanceMethods, Minitest::Test, Minitest::Guard, Minitest::Test::LifecycleHooks, Minitest::Reportable, Minitest::Assertions, Minitest::Runnable, Object, Minitest::Expectations, Kernel, BasicObject]}
+├─DSL {:kla=>Module}
+│ ├─InstanceMethods {:kla=>Module}
+│ └─TYPES {:kla=>Array}
+├─E {:kla=>String}
+├─LifecycleHooks {:kla=>Module}
+├─PASSTHROUGH_EXCEPTIONS {:kla=>Array}
+├─SIGNALS {:kla=>Hash}
+├─TEARDOWN_METHODS {:kla=>Array}
+├─TYPES {:ref=>"Minitest::Spec::DSL::TYPES"}
+└─UNDEFINED {:kla=>Object}
 => nil
 ```
 
