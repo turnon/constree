@@ -36,6 +36,7 @@ module Constree
     end
 
     def == other
+      return false unless constant.is_a? Module
       return false unless other.is_a? Node
       constant == other.constant
     end
