@@ -47,6 +47,10 @@ ConstreeTest::A {:kla=>Module}
   └─N {:kla=>Class, :bef=>[ConstreeTest::A::J::L], :aft=>[ConstreeTest::A::J::M, ConstreeTest::A::J::K, Object, Minitest::Expectations, Kernel, BasicObject]}
 EOS
     assert_equal tree.chomp, Constree.of(A)
+
+    File.open(File.join(Dir.tmpdir, Time.now.strftime('%Y%m%d_%H%M%S')) + '.html', 'w') do |f|
+      f.puts Constree.html_of(A)
+    end
   end
 end
 

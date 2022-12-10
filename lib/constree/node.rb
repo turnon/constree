@@ -1,4 +1,5 @@
 require 'tree_graph'
+require 'tree_html'
 
 module Constree
   Node = Struct.new :constant, :name, :parent do
@@ -11,6 +12,18 @@ module Constree
 
     def children_for_tree_graph
       @sub_consts ||= []
+    end
+
+    include TreeHtml
+
+    def label_for_tree_html
+      "<span class='hl'>#{display_name}</span> #{verbose}"
+    end
+
+    alias_method :children_for_tree_html, :children_for_tree_graph
+
+    def css_for_tree_html
+      '.hl{color: coral;}'
     end
 
     attr_accessor :ref
@@ -36,6 +49,7 @@ module Constree
     end
 
     def == other
+      return false unless constant.is_a? Module
       return false unless other.is_a? Node
       constant == other.constant
     end
