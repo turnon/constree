@@ -18,6 +18,33 @@ Or install it yourself as:
 
     $ gem install constree
 
+## Example: find distinct module/class under a module
+
+```ruby
+[1] pry(main)> require "concurrent-ruby"
+=> true
+[2] pry(main)> require "constree"
+=> true
+[3] pry(main)> Constree.uniq(Concurrent)
+=> #<Set:
+ {Concurrent,
+  Concurrent::AtomicDirectUpdate,
+  Concurrent::AtomicNumericCompareAndSetWrapper,
+  Concurrent::CyclicBarrier,
+  Concurrent::Synchronization::Volatile::ClassMethods,
+  Concurrent::Promises,
+  Concurrent::Promises::FactoryMethods,
+  Concurrent::Promises::FactoryMethods::Configuration,
+  Concurrent::Promises::Resolvable,
+  Concurrent::Promises::InternalStates::State,
+  Concurrent::Promises::InternalStates::Pending,
+  Concurrent::Promises::InternalStates::Reserved,
+  Concurrent::Promises::InternalStates::ResolvedWithResult,
+  Concurrent::Promises::InternalStates::Fulfilled,
+  Concurrent::Promises::InternalStates::FulfilledArray,
+  ...
+```
+
 ## Example: output tree to html
 
 ```ruby
